@@ -7,6 +7,7 @@ interface LanguageSelectorProps {
   options: string[];
   autoDetect?: boolean;
   searchPlaceholder?: string;
+  isTargetLanguage?: boolean;
 }
 
 export default function LanguageSelector({ 
@@ -15,7 +16,8 @@ export default function LanguageSelector({
   placeholder, 
   options, 
   autoDetect = false,
-  searchPlaceholder = "Search"
+  searchPlaceholder = "Search",
+  isTargetLanguage = false
 }: LanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState('');
@@ -47,7 +49,7 @@ export default function LanguageSelector({
     option.toLowerCase().includes(search.toLowerCase())
   );
 
-  const displayValue = value === 'auto' ? 'Automatic detection' : value;
+  const displayValue = value === 'auto' && !isTargetLanguage ? 'Automatic detection' : value;
 
   return (
     <div className="relative w-full" ref={dropdownRef}>
@@ -73,7 +75,7 @@ export default function LanguageSelector({
             />
           </div>
           <ul className="max-h-60 overflow-auto py-1">
-            {autoDetect && (
+            {autoDetect && !isTargetLanguage && (
               <li
                 className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-gray-800 dark:text-gray-200"
                 onClick={() => {
@@ -86,7 +88,7 @@ export default function LanguageSelector({
               </li>
             )}
             {filteredOptions
-              .filter(option => option !== 'auto') // Remove 'auto' from the main list
+              .filter(option => option.toLowerCase() !== 'automatic detection') // Remove 'Automatic detection' from the main list
               .map((option, index) => (
                 <li
                   key={index}

@@ -174,6 +174,7 @@ export default function HomeClient() {
                 options={settings.modelProvider === 'Deepl' ? deepLLanguages.map(lang => lang.name) : languages}
                 autoDetect={true}
                 searchPlaceholder="Search source language"
+                isTargetLanguage={false}
               />
               <button 
                 onClick={handleSwapLanguages}
@@ -190,6 +191,7 @@ export default function HomeClient() {
                 placeholder="Target"
                 options={settings.modelProvider === 'Deepl' ? deepLLanguages.map(lang => lang.name) : languages}
                 searchPlaceholder="Search target language"
+                isTargetLanguage={true}
               />
             </div>
             
@@ -214,6 +216,7 @@ export default function HomeClient() {
                 options={settings.modelProvider === 'Deepl' ? deepLLanguages.map(lang => lang.name) : languages}
                 autoDetect={true}
                 searchPlaceholder="Search source language"
+                isTargetLanguage={false}
               />
             </div>
             
@@ -234,6 +237,7 @@ export default function HomeClient() {
                 placeholder="Select target language"
                 options={settings.modelProvider === 'Deepl' ? deepLLanguages.map(lang => lang.name) : languages}
                 searchPlaceholder="Search target language"
+                isTargetLanguage={true}
               />
             </div>
           </div>
