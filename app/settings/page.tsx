@@ -8,11 +8,10 @@ import groqModels from '../Resources/model/groq.json';
 import { useSettings } from '../hooks/useSettings';
 import VisibilityIcon from '../../assets/Visibility.svg';
 import VisibilityOffIcon from '../../assets/VisibilityOff.svg';
-import deepLLanguages from '../Resources/language/deepl_language.json';
 
 export default function Settings() {
   const router = useRouter();
-  const { settings, updateSettings, deepLLanguages } = useSettings();
+  const { settings, updateSettings } = useSettings();
   const [localSettings, setLocalSettings] = useState(settings);
   const [models, setModels] = useState(openAIModels);
   const [showApiKey, setShowApiKey] = useState(false);

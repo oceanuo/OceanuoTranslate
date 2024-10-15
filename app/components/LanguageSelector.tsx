@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import languages from '../Resources/language/language.json';
 
 interface LanguageSelectorProps {
   value: string;
