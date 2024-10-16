@@ -8,35 +8,16 @@ import groqModels from '../Resources/model/groq.json';
 import { useSettings } from '../hooks/useSettings';
 import VisibilityIcon from '../../assets/Visibility.svg';
 import VisibilityOffIcon from '../../assets/VisibilityOff.svg';
-import { useTheme } from '../contexts/ThemeContext';
-
-// Define default settings
-const defaultSettings = {
-  theme: 'system',
-  modelProvider: 'OpenAI',
-  apiKey: '',
-  apiHost: 'https://api.openai.com/v1',
-  model: 'gpt-4o-mini',
-  temperature: '0',
-  topP: '0',
-  presencePenalty: '0',
-  frequencyPenalty: '0',
-  systemPrompt: 'You are a professional, authentic machine translation engine.',
-};
 
 export default function Settings() {
   const router = useRouter();
   const { settings, updateSettings } = useSettings();
-  const { theme, setTheme } = useTheme();
-  const [localSettings, setLocalSettings] = useState({ ...settings, theme });
+  const [localSettings, setLocalSettings] = useState(settings);
   const [models, setModels] = useState(openAIModels);
   const [showApiKey, setShowApiKey] = useState(false);
 
   useEffect(() => {
-    setLocalSettings(prevSettings => ({
-      ...settings,
-      theme: settings.theme as 'light' | 'dark' | 'system'
-    }));
+    setLocalSettings(settings);
   }, [settings]);
 
   useEffect(() => {
@@ -67,9 +48,6 @@ export default function Settings() {
 
   const handleInputChange = (key: string, value: string) => {
     setLocalSettings(prev => ({ ...prev, [key]: value }));
-    if (key === 'theme') {
-      setTheme(value as 'light' | 'dark' | 'system');
-    }
   };
 
   const handleSave = () => {
@@ -82,11 +60,6 @@ export default function Settings() {
   };
 
   const inputClasses = "w-full p-2 border rounded-md bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700";
-
-  const handleRestoreDefaults = () => {
-    setLocalSettings({ ...defaultSettings, theme: theme as 'light' | 'dark' | 'system' });
-    setTheme(defaultSettings.theme as 'light' | 'dark' | 'system');
-  };
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-8">
@@ -173,7 +146,7 @@ export default function Settings() {
             Cancel
           </button>
           <button 
-            onClick={handleRestoreDefaults}
+            onClick={() => setLocalSettings(settings)}
             className="flex-1 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
           >
             Restore Defaults
