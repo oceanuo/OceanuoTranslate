@@ -17,7 +17,7 @@ export default function TranslateButton({ onClick, isTranslating, isMobile }: Tr
       }`}
     >
       <span className={`text-lg font-medium ${isMobile ? '' : '[writing-mode:vertical-lr] rotate-180'}`}>
-        {isTranslating ? 'Stop' : 'Translate'}
+        {isTranslating ? 'Stop Translating...' : 'Translate'}
       </span>
     </button>
   );

@@ -8,6 +8,7 @@ import groqModels from '../Resources/model/groq.json';
 import { useSettings } from '../hooks/useSettings';
 import VisibilityIcon from '../../assets/Visibility.svg';
 import VisibilityOffIcon from '../../assets/VisibilityOff.svg';
+import { defaultSettings } from '../hooks/useSettings';
 
 export default function Settings() {
   const router = useRouter();
@@ -39,7 +40,7 @@ export default function Settings() {
       setModels([]);
       setLocalSettings(prev => ({
         ...prev,
-        apiHost: '', // Remove apiHost for Deepl
+        apiHost: '',
         model: '',
         apiKey: ''
       }));
@@ -55,7 +56,14 @@ export default function Settings() {
     router.push('/');
   };
 
+  const handleRestoreDefaults = () => {
+    setLocalSettings(defaultSettings);
+    setModels(openAIModels);
+  };
+
   const formatLabel = (key: string) => {
+    if (key === 'apiKey') return 'API Key';
+    if (key === 'apiHost') return 'API Host';
     return key.split(/(?=[A-Z])/).join(' ').replace(/^\w/, c => c.toUpperCase());
   };
 
@@ -146,7 +154,7 @@ export default function Settings() {
             Cancel
           </button>
           <button 
-            onClick={() => setLocalSettings(settings)}
+            onClick={handleRestoreDefaults}
             className="flex-1 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
           >
             Restore Defaults
