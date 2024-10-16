@@ -195,7 +195,7 @@ export default function HomeClient() {
               />
             </div>
             
-            <Link href="/settings" className="block w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md text-center text-base font-medium transition duration-300">
+            <Link href="/settings" className="block w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-4 rounded-md text-center text-base font-medium transition duration-300">
               Settings
             </Link>
           </div>
