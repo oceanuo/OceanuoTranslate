@@ -12,6 +12,14 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     applyTheme(savedTheme);
   }, []);
 
+  useEffect(() => {
+    // Apply theme whenever it changes
+    if (theme) {
+      applyTheme(theme);
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
+
   const applyTheme = (newTheme: string) => {
     if (newTheme === 'dark' || (newTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
